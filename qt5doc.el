@@ -1,7 +1,7 @@
-;;; qt5doc.el --- Search for QT5 documentation
+;;; qt5doc.el --- Search for Qt 5 documentation
 ;; Copyright (c) Christian Schwarzgruber <c.schwarzgruber.cs@gmail.com>
 ;; Author: Christian Schwarzgruber
-;; Description: Search fort QT5 documentation and opened it in a browser.
+;; Description: Search for offline Qt 5 documentation
 ;; Version: 0.1
 
 ;; Change Log:
@@ -26,12 +26,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defgroup qt5doc nil "Qt5 Documentation Browser"
+(defgroup qt5doc nil "Qt 5 Documentation Browser"
   :group 'wp
   :version "24.4")
 
 (defcustom qt5doc-html-root "/usr/share/doc/qt5"
-  "The directory where the QT5 documentation lies."
+  "The directory where the Qt 5 documentation lies."
   :type '(string :tag "Single directory (string)")
   :group 'qt5doc
   )
@@ -418,7 +418,13 @@ X QX11Info QXcbWindowFunctions QXmlAttributes QXmlContentHandler
 (require 'thingatpt)
 
 (defun qt5doc-lookup ()
-  "Lookup a class name in the Qt documentation."
+  "Lookup a class name in Qt documentation.
+
+Searches in `qt5doc-html-root' for the given documentation and
+passes the documentation to `browse-url', if found.
+
+If called while on a Qt class it will use this class as default search term.
+"
   (interactive)
   (let ((sp (thing-at-point 'symbol))
 	val

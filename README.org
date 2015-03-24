@@ -1,0 +1,2 @@
+# qt5doc
+Browse Qt 5 Documentation Offline

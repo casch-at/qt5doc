@@ -1,4 +1,4 @@
-;;; qt5doc.el --- Search for Qt 5 documentation
+;;; qt5-doc.el --- Search for Qt 5 documentation
 ;; Copyright (c) Christian Schwarzgruber <c.schwarzgruber.cs@gmail.com>
 ;; Author: Christian Schwarzgruber
 ;; Description: Search for offline Qt 5 documentation
@@ -26,17 +26,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defgroup qt5doc nil "Qt 5 Documentation Browser"
+(defgroup qt5-doc nil "Qt 5 Documentation Browser"
   :group 'wp
   :version "24.4")
 
-(defcustom qt5doc-html-root "/usr/share/doc/qt5"
+(defcustom qt5-doc-html-root "/usr/share/doc/qt5"
   "The directory where the Qt 5 documentation lies."
   :type '(string :tag "Single directory (string)")
-  :group 'qt5doc
+  :group 'qt5-doc
   )
 
-(defvar qt5doc-docindex-string
+(defvar qt5-doc-docindex-string
   "QAbstractAnimation QAbstractButton QAbstractEventDispatcher
     QAbstractExtensionFactory QAbstractExtensionManager
     QAbstractFormBuilder QAbstractGraphicsShapeItem
@@ -409,7 +409,7 @@ X QX11Info QXcbWindowFunctions QXmlAttributes QXmlContentHandler
 
 (defvar qtdoc-classes
   (delete-if-not (lambda (x) (> (length x) 1))
-		 (split-string qt5doc-docindex-string))
+		 (split-string qt5-doc-docindex-string))
   "List of class names."
   )
 
@@ -417,10 +417,10 @@ X QX11Info QXcbWindowFunctions QXmlAttributes QXmlContentHandler
 (require 'browse-url)
 (require 'thingatpt)
 
-(defun qt5doc-lookup ()
+(defun qt5-doc-lookup ()
   "Lookup a class name in Qt documentation.
 
-Searches in `qt5doc-html-root' for the given documentation and
+Searches in `qt5-doc-html-root' for the given documentation and
 passes the documentation to `browse-url', if found.
 
 If called while on a Qt class it will use this class as default search term.
@@ -438,10 +438,10 @@ If called while on a Qt class it will use this class as default search term.
     (setq abs-file-name
 	  (replace-regexp-in-string
 	   "\n$" "" (shell-command-to-string
-		     (concat "find " qt5doc-html-root " -type f -name " file-name))))
+		     (concat "find " qt5-doc-html-root " -type f -name " file-name))))
     (if (not (string= abs-file-name ""))
 	(browse-url (browse-url-file-url abs-file-name))
       (message "Could not find documentation file for class: %s" class))))
 
-(provide 'qt5doc)
-;;; qt5doc.el ends here
+(provide 'qt5-doc)
+;;; qt5-doc.el ends here
